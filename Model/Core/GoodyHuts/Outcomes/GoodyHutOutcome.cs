@@ -2,8 +2,8 @@
 
 namespace Model.Core.GoodyHuts.Outcomes
 {
-    internal abstract class GoodyHutOutcome
+    public abstract class GoodyHutOutcome
     {
-        internal abstract void ApplyOutcome(Unit unit);
+        public abstract void ApplyOutcome(Unit unit);
     }
 }

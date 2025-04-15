@@ -2,14 +2,14 @@
 
 namespace Model.Core.GoodyHuts.Outcomes
 {
-    internal class GoldOutcome : GoodyHutOutcome
+    public class GoldOutcome : GoodyHutOutcome
     {
         private readonly int _amount;
-        internal GoldOutcome(int amount)
+        public GoldOutcome(int amount)
         {
             _amount = amount;
         }
-        internal override void ApplyOutcome(Unit unit)
+        public override void ApplyOutcome(Unit unit)
         {
             unit.Owner.Money += _amount;
 
