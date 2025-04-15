@@ -3,11 +3,11 @@ using Model.Core.GoodyHuts.Outcomes;
 
 namespace Model.Core.GoodyHuts
 {
-    internal class GoodyHut
+    public class GoodyHut
     {
         private List<GoodyHutOutcome> _outcomes = new();
 
-        internal GoodyHut() 
+        public GoodyHut() 
         {
             _outcomes.Add(new GoldOutcome(50));
             // Mercenaries
@@ -16,7 +16,7 @@ namespace Model.Core.GoodyHuts
             // Barbarians
         }
 
-        internal void Trigger(Unit unit)
+        public void Trigger(Unit unit)
         {
             var outcome = _outcomes[0]; // TODO: Randomly select an outcome
             outcome.ApplyOutcome(unit);

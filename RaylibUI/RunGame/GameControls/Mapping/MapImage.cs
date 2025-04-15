@@ -147,8 +147,8 @@ public static class MapImage
                 Color.White);
         }
 
-        
-        var tileDetails = new TileDetails { Image = tilePic };
+
+            var tileDetails = new TileDetails { Image = tilePic };
         if (tile.Map.MapRevealed || (tile.PlayerKnowledge != null && tile.PlayerKnowledge.Length > civilizationId &&
             tile.PlayerKnowledge[civilizationId] != null))
         {

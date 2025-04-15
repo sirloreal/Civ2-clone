@@ -7,6 +7,8 @@ using Civ2engine.MapObjects;
 using Civ2engine.Terrains;
 using Civ2engine.Units;
 using Model.Core;
+using Model.Core.GoodyHuts;
+using Model.Core.GoodyHuts.Outcomes;
 
 namespace Civ2engine.UnitActions
 {
@@ -438,6 +440,12 @@ namespace Civ2engine.UnitActions
                 {
                     neighbours.ForEach(n => n.SetVisible(unit.Owner.Id));
                     game.TriggerMapEvent(MapEventType.UpdateMap, neighbours);
+                }
+
+                if(tileTo.HasGoodyHut) 
+                {
+                    var goodyHut = new GoodyHut();
+                    goodyHut.Trigger(unit);
                 }
             }
         }

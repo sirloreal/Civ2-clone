@@ -84,6 +84,8 @@ namespace Civ2engine.MapObjects
 
         public bool HasShield { get; }
 
+        public bool HasGoodyHut { get { return true;  } } //TODO:
+
         private bool HasSheild()
         {
             // Formula for determining where grassland shield is based on X-Y coords
@@ -93,6 +95,8 @@ namespace Civ2engine.MapObjects
             int rez = (X - (Y % 2) + rez3) % 8;
             return rez < 4;
         }
+
+
 
         // From RULES.TXT
         public string Name => _terrain.Name;
