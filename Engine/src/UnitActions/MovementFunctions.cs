@@ -444,8 +444,8 @@ namespace Civ2engine.UnitActions
 
                 if(tileTo.HasGoodyHut) 
                 {
-                    var goodyHut = new GoodyHut();
-                    goodyHut.Trigger(unit);
+                    tileTo.ConsumeGoodyHut(unit);
+                    game.TriggerMapEvent(MapEventType.UpdateMap, new List<Tile> { tileTo });
                 }
             }
         }

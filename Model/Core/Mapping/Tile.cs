@@ -1,6 +1,7 @@
 using Civ2engine.Terrains;
 using Civ2engine.Units;
 using Model.Core;
+using Model.Core.GoodyHuts;
 using Model.Core.Mapping;
 
 namespace Civ2engine.MapObjects
@@ -84,7 +85,15 @@ namespace Civ2engine.MapObjects
 
         public bool HasShield { get; }
 
-        public bool HasGoodyHut { get { return true;  } } //TODO:
+        public bool HasGoodyHut { get { return _goodyHut != null;  } }
+
+        private GoodyHut? _goodyHut = new GoodyHut();
+
+        public void ConsumeGoodyHut(Unit unit)
+        {
+            _goodyHut.Trigger(unit);
+            _goodyHut = null; // Consume / remove the goody hut from the game.
+        }
 
         private bool HasSheild()
         {
