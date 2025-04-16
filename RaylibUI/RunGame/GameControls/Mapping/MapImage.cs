@@ -149,6 +149,7 @@ public static class MapImage
 
         if(tile.HasGoodyHut)
         {
+            // Add a goody hut if it exists on this tile.
             tilePic.Draw(Images.ExtractBitmap(terrainSet.Huts), TileRec, TileRec, Color.White);
         }    
 

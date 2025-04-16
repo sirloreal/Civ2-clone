@@ -84,14 +84,12 @@ namespace Civ2engine.MapObjects
         }
 
         public bool HasShield { get; }
-
-        public bool HasGoodyHut { get { return _goodyHut != null;  } }
-
+        
         private GoodyHut? _goodyHut = new GoodyHut();
-
+        public bool HasGoodyHut { get { return _goodyHut != null;  } }      
         public void ConsumeGoodyHut(Unit unit)
         {
-            _goodyHut.Trigger(unit);
+            _goodyHut?.Trigger(unit);
             _goodyHut = null; // Consume / remove the goody hut from the game.
         }
 
