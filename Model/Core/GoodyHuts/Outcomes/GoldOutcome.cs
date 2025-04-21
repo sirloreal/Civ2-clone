@@ -1,9 +1,11 @@
 ﻿using Civ2engine.Units;
+using System.Diagnostics.Metrics;
 
 namespace Model.Core.GoodyHuts.Outcomes
 {
     public class GoldOutcome : GoodyHutOutcome
     {
+        public string Description => $"You have discovered valuable metal deposits worth {_amount} gold.";
         private readonly int _amount;
         public GoldOutcome(int amount)
         {
