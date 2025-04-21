@@ -79,6 +79,18 @@ namespace Civ2engine.MapObjects
                 var d = 1 << ((seed >> 4) & 3);
                 Special = (d & a) == (d & b) ? 1 : 0;
             }
+
+            // Goody Hut calculation based on the seed
+            var nSum = (X + Y) / 2;
+            var nDiff = (X - Y) / 2;
+            //var nDiff2 = nDiff + 4096 % 4096;
+            var hash = (nSum/4) * 11 + (nDiff / 4)  * 13 + 8;
+            //var hutSeed = 
+
+            var hutHash = (hash + seed) % 32;
+            IsGoodyHutTile = nSum % 4 + nDiff % 4 * 4 == hutHash;
+            Console.WriteLine("Has GoodyHut: " + IsGoodyHutTile);
+
             // Terrain must be set after special to get the correct EffectiveTerrain type for specials
             Terrain = terrain;
         }
@@ -86,6 +98,7 @@ namespace Civ2engine.MapObjects
         public bool HasShield { get; }
         
         private GoodyHut? _goodyHut = new GoodyHut();
+        public bool IsGoodyHutTile { get; private set; }
         public bool HasGoodyHut { get { return _goodyHut != null;  } }      
         public void ConsumeGoodyHut(Unit unit)
         {
