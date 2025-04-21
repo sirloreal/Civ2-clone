@@ -80,19 +80,48 @@ namespace Civ2engine.MapObjects
                 Special = (d & a) == (d & b) ? 1 : 0;
             }
 
-            // Goody Hut calculation based on the seed
-            var nSum = (X + Y) / 2;
-            var nDiff = (X - Y) / 2;
-            //var nDiff2 = nDiff + 4096 % 4096;
-            var hash = (nSum/4) * 11 + (nDiff / 4)  * 13 + 8;
-            //var hutSeed = 
-
-            var hutHash = (hash + seed) % 32;
-            IsGoodyHutTile = nSum % 4 + nDiff % 4 * 4 == hutHash;
+            IsGoodyHutTile = GoodyHutAlgo2(seed);
             Console.WriteLine("Has GoodyHut: " + IsGoodyHutTile);
 
             // Terrain must be set after special to get the correct EffectiveTerrain type for specials
             Terrain = terrain;
+        }
+
+        private bool GoodyHutAlgo2(int seed)
+        {
+            // This one is close but not quite right. Has the patterns but offset slightly on the map.
+            var nSum = (X + Y) / 2;
+            var nDiff = (X - Y) / 2;
+            nDiff = (nDiff + 4096) % 4096;
+            var hash = (nSum / 4) * 11 + (nDiff / 4) * 13 + 8;
+            hash = (hash + seed) % 32;
+            var expectedHash = (nSum % 4) + (nDiff % 4) * 4;
+
+            return hash == expectedHash;
+        }
+
+        private bool GoodyHutAlgo1(int seed)
+        {
+            var nSum = (X + Y) / 2;
+            var nDiff = (X - Y) / 2;
+            nDiff = (nDiff + 4096) % 4096;
+
+            int nSumDiv4 = nSum / 4;
+            int nDiffDiv4 = nDiff / 4;
+            int hash = nSumDiv4 * 11 + nDiffDiv4 * 13 + 8;
+
+            int seedComponent = (nSumDiv4 % 4) + (nDiffDiv4 % 4) * 4 - (hash / 32) % 32;
+            int finalSeed = (seedComponent + 32) % 32;
+
+            Console.WriteLine("Seed: " + seed);
+            Console.WriteLine("FinalSeed: " + finalSeed);
+
+            // Adjusted hash for comparison
+            int adjustedHash = (hash + seed) % 32;
+            int expectedHash = (nSumDiv4 % 4) + (nDiffDiv4 % 4) * 4;
+
+            // TODO: Is Land Tile
+            return adjustedHash == expectedHash;
         }
 
         public bool HasShield { get; }
