@@ -89,11 +89,13 @@ namespace Civ2engine.MapObjects
 
         private bool GoodyHutAlgo2(int seed)
         {
+            // https://apolyton.net/forum/miscellaneous/archives/civ2-strategy-archive/80739-location-of-huts
+            // https://apolyton.net/forum/miscellaneous/archives/civ2-strategy-archive/48020-hut-pattern
             // This one is close but not quite right. Has the patterns but offset slightly on the map.
             var nSum = (X + Y) / 2;
             var nDiff = (X - Y) / 2;
             nDiff = (nDiff + 4096) % 4096;
-            var hash = (nSum / 4) * 11 + (nDiff / 4) * 13 + 8;
+            var hash = (nSum / 4 * 11) + (nDiff / 4 * 13 + 8);
             hash = (hash + seed) % 32;
             var expectedHash = (nSum % 4) + (nDiff % 4) * 4;
 
